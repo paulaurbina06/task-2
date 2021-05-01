@@ -7,31 +7,42 @@
 
 #initial configuration
 
-library(tidyr, data.table)
+library(tidyr)
+library(data.table)
 
 
 #Punto 1
 #Punto 1.0
 
+#Leer el archivo .rds
 lista_df <- readRDS("data/input/lista.rds")
-View(lista_df$`homicidios-2010`)
+#View(lista_df$`homicidios-2010`)
 
 #Punto 1.1 y 1.2
 
-View(lista_df[[1]])
+#View(lista_df[[1]])
 
+#nombres de cada una de las categorías del archivo
 tipo=names(lista_df)
+#Recorro sobre las 74 lineas
 for (i in seq(1:74)){
-  lista_df[[i]]<-lista_df[[i]]
+  #Quitamos todas las filas que contengan NA en sus valores
   lista_df[[i]]<-na.omit(lista_df[[i]])
+  #Tomamos la primera fila, la transformamos a strings, la convertimos en minusculas
+  #las definimos como títulos con names()
   names(lista_df[[i]])=tolower(as.character(lista_df[[i]][1,]))
+  #Eliminamos la fila que designamos para los títulos
   lista_df[[i]] <- lista_df[[i]][-1,]
+  #Creamos una columna titulada tipo_delito y le asignamos en todas las filas 
+  #el nombre de la categoria
   lista_df[[i]]$tipo_delito=rep(tipo[i],nrow(lista_df[[i]]))
 }
 
 
 #Punto 1.3
+#Juntamos todas las posiciones de la lista con rbindlist
 df=rbindlist(lista_df,use.names = TRUE ,fill = TRUE)
+#Visualizamos nuestro dataframe
 View(df)
 
 
@@ -41,13 +52,17 @@ View(df)
 
 #Punto 3 lapply
 #Punto 3.1
+#Creamos la función convertir_a_min
 convertir_a_min <- function(v) {
+  #Si el vector es de string, convertimos en minúsculas.
+  #De lo contrario lo pasamos a minúsculas
   if (is.character(v)==TRUE){
     return(tolower(v)) 
   }else{
     print("No se pudo realizar esta conversión")
   }
 }
+#Hacemos pruebas de la función
 convertir_a_min(c(133,444))
 convertir_a_min(c('VUIJLKJnmjjj','MMMMMMMMMMM'))
 
