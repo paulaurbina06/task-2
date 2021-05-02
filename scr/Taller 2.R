@@ -3,10 +3,10 @@
 #Fecha de elaboración:30 de abril del 2021
 #Fecha última modificación: 10 de marzo del 2021
 
-#Se rralizó el Taller A
+#Se realizó el Taller A
 
-#initial configuration
-
+#configuración inicial
+rm(list = ls())
 library(tidyr)
 library(data.table)
 
@@ -39,6 +39,7 @@ for (i in seq(1:74)){
 }
 
 
+
 #Punto 1.3
 #Juntamos todas las posiciones de la lista con rbindlist
 df=rbindlist(lista_df,use.names = TRUE ,fill = TRUE)
@@ -46,11 +47,35 @@ df=rbindlist(lista_df,use.names = TRUE ,fill = TRUE)
 View(df)
 
 
+###Nicolas: en la primera columna del df, que tiene el nombre "fecha", esa columna no es el Codigo DANE?
+
+
 #Punto 2 familia apply
+
+#revisar tabla df y ver variables:
+summary(df)
+colnames(df)
+
+
+#usando lapply
+#las variables con datos van desde la columna 2 hasta la 21, por eso se acota
+#para ver la descripcion de las variables usamos summary
+lapply(df[,2:21],summary)
+
+#para contar el numero de veces que se repite la observacion podemos usar table
+lapply(df[,2:21],table)
+
+#el taller pide una tabla de frecuencia para cada variables del objeto
+tabla_frequencia=lapply(df[,2:21],table)
+View(tabla_frequencia)
+
+#tabla_frecuencia deja ver cada variable con su frecuencia
 
 
 
 #Punto 3 lapply
+
+
 #Punto 3.1
 #Creamos la función convertir_a_min
 convertir_a_min <- function(v) {
