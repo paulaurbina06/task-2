@@ -93,3 +93,6 @@ convertir_a_min(c('VUIJLKJnmjjj','MMMMMMMMMMM'))
 
 
 #Punto 3.2
+#convertir elementos de df a minúsculas
+view(lista_df)
+lapply(df[,2:21],convertir_a_min)
