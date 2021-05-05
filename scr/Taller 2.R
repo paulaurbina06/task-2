@@ -47,9 +47,6 @@ df=rbindlist(lista_df,use.names = TRUE ,fill = TRUE)
 View(df)
 
 
-###Nicolas: en la primera columna del df, que tiene el nombre "fecha", esa columna no es el Codigo DANE?
-
-
 #Punto 2 familia apply
 
 #revisar tabla df y ver variables:
